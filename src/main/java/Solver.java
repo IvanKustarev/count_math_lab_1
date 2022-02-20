@@ -6,6 +6,10 @@ public class Solver {
         double[][] srcMatrix = request.srcMatrix;
         double errRate = request.errRate;
 
+        if (!verification(srcMatrix)) {
+            return null;
+        }
+
         double[][] indexMatrix = new double[srcMatrix.length][srcMatrix.length];
         double[] d = new double[srcMatrix.length];
         for (int i = 0; i < srcMatrix.length; i++) {
@@ -13,10 +17,6 @@ public class Solver {
                 indexMatrix[i][j] = srcMatrix[i][j];
             }
             d[i] = srcMatrix[i][srcMatrix.length];
-        }
-
-        if (!verification(indexMatrix)) {
-            return null;
         }
 
         //здесь матрица индексов превращается в "C"
@@ -130,6 +130,9 @@ public class Solver {
     public class Request {
         private double[][] srcMatrix;
         private double errRate;
+
+        public Request() {
+        }
 
         public Request(double[][] srcMatrix, double errRate) {
             this.srcMatrix = srcMatrix;
